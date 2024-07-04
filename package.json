@@ -1,7 +1,7 @@
 {
-  "name": "@epicurrents/htm-module",
+  "name": "@epicurrents/doc-module",
   "version": "0.0.1",
-  "description": "Epicurrents HTM module",
+  "description": "Epicurrents document module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -20,8 +20,7 @@
   },
   "imports": {
     "#runtime*": "./dist/src/runtime/index.ts",
-    "#root/*": "./dist/*",
-    "#*": "./dist/src/*"
+    "#*": "./dist/*"
   },
   "files": [
     "dist/*",
@@ -46,7 +45,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/epicurrents/htm-module.git"
+    "url": "https://github.com/epicurrents/doc-module.git"
   },
   "author": "Sampsa Lohi",
   "license": "Apache-2.0",

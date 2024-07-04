@@ -1,15 +1,18 @@
-import { DocumentFormat, DocumentResource } from "@epicurrents/core/dist/types"
+import { DocumentResource } from "@epicurrents/core/dist/types"
 
-export interface HtmDataService {
-
-}
-
-export type HtmDocumentFormat = Exclude<DocumentFormat, "pdf">
-
-export type HtmModuleSettings = {
+export interface DocDataService {
 
 }
 
-export interface HtmResource extends DocumentResource {
+/**
+ * Valid document formats.
+ */
+export type DocumentFormat = "html" | "markdown" | "pdf"
+
+export type DocModuleSettings = {
+
+}
+
+export interface DocResource extends DocumentResource {
 
 }

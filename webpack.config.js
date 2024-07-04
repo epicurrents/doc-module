@@ -2,12 +2,12 @@ const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
 require('dotenv').config()
 
-const ASSET_PATH = process.env.ASSET_PATH || '/htm-module/'
+const ASSET_PATH = process.env.ASSET_PATH || '/doc-module/'
 
 module.exports = {
     mode: 'production',
     entry: {
-        'htm-module': { import: path.join(__dirname, 'src', 'index.ts') },
+        'doc-module': { import: path.join(__dirname, 'src', 'index.ts') },
     },
     module: {
         rules: [
@@ -28,7 +28,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'umd'),
         publicPath: ASSET_PATH,
-        library: 'EpicHtmMod',
+        library: 'EpicDocMod',
         libraryTarget: 'umd',
     },
     resolve: {
@@ -36,7 +36,9 @@ module.exports = {
         alias: {
             '#root': path.resolve(__dirname, './'),
             '#config': path.resolve(__dirname, 'src', 'config'),
+            '#loader': path.resolve(__dirname, 'src', 'loader'),
             '#runtime': path.resolve(__dirname, 'src', 'runtime'),
+            '#service': path.resolve(__dirname, 'src', 'service'),
             '#types': path.resolve(__dirname, 'src', 'types'),
         },
         symlinks: false

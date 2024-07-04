@@ -1,6 +1,6 @@
 /**
- * Epicurrents HTM study loader.
- * @package    epicurrents/htm-module
+ * Epicurrents document loader.
+ * @package    epicurrents/doc-module
  * @copyright  2024 Sampsa Lohi
  * @license    Apache-2.0
  */
@@ -13,12 +13,12 @@ import {
     type StudyContext,
 } from '@epicurrents/core/dist/types'
 import { HtmDocument } from '..'
-import { type HtmDocumentFormat, type HtmResource } from '#types'
+import { type DocumentFormat, type DocResource } from '#types'
 import Log from 'scoped-ts-log'
 
-const SCOPE = 'HtmStudyLoader'
+const SCOPE = 'DocLoader'
 
-export default class HtmStudyLoader extends GenericStudyLoader {
+export default class DocLoader extends GenericStudyLoader {
 
     constructor (name: string, contexts: string[], types: string[], reader: FileFormatReader) {
         super(name, contexts, types, reader)
@@ -28,17 +28,17 @@ export default class HtmStudyLoader extends GenericStudyLoader {
         return HtmDocument.SCOPES.DOCUMENT
     }
 
-    async getResource (idx: number | string = -1): Promise<HtmResource | null> {
+    async getResource (idx: number | string = -1): Promise<DocResource | null> {
         const loaded = await super.getResource(idx)
         if (loaded) {
-            return loaded as HtmResource
+            return loaded as DocResource
         } else if (!this._study) {
             return null
         }
         // Create a new resource from the loaded study.
         if (!this._study.name) {
             Log.error(
-                `Cannot construct an HTM resource from given study context; it is missing required properties.`,
+                `Cannot construct a document resource from given study context; it is missing required properties.`,
             SCOPE)
             return null
         }
@@ -53,7 +53,7 @@ export default class HtmStudyLoader extends GenericStudyLoader {
         }
         const doc = new HtmDocument(
             this._study.name,
-            this._study.format as HtmDocumentFormat,
+            this._study.format as DocumentFormat,
             this._study,
             worker,
         )

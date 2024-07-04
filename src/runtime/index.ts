@@ -1,6 +1,6 @@
 /**
- * Epicurrents HTM module.
- * @package    epicurrents/htm-module
+ * Epicurrents document module.
+ * @package    epicurrents/doc-module
  * @copyright  2024 Sampsa Lohi
  * @license    Apache-2.0
  */
@@ -12,23 +12,23 @@ import {
     type SafeObject,
     type StateManager,
 } from '@epicurrents/core/dist/types'
-import { HtmResource } from '#types'
+import { DocResource } from '#types'
 
-const SCOPE = 'htm-runtime-module'
+const SCOPE = 'doc-runtime-module'
 
-const HTM: SafeObject & RuntimeResourceModule = {
+const DOC: SafeObject & RuntimeResourceModule = {
     __proto__: null,
     moduleName: {
-        code: 'htm',
-        full: 'HTM document',
-        short: 'HTM',
+        code: 'doc',
+        full: 'Document',
+        short: 'Doc',
     },
     setPropertyValue (property: string, value: unknown, resource?: DataResource, state?: StateManager) {
-        // HTM document specific property mutations.
+        // Document specific property mutations.
         const activeRes = resource
-                          ? resource as HtmResource
+                          ? resource as DocResource
                           : state
-                            ? state.APP.activeDataset?.activeResources[0] as HtmResource
+                            ? state.APP.activeDataset?.activeResources[0] as DocResource
                             : null
         if (!activeRes) {
             return
@@ -44,4 +44,4 @@ const HTM: SafeObject & RuntimeResourceModule = {
         }
     },
 }
-export default HTM
+export default DOC

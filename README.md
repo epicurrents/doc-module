@@ -1,2 +1,2 @@
-HTM Module for EpiCurrents
-==========================
+Document Module for EpiCurrents
+===============================

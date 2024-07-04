@@ -9,7 +9,7 @@ const ROOT_PATH = process.env.ROOT_PATH || '/'
 module.exports = {
     mode: 'development',
     entry: {
-        'htm-module': { import: path.join(__dirname, 'src', 'index.ts') },
+        'doc-module': { import: path.join(__dirname, 'src', 'index.ts') },
     },
     module: {
         rules: [
@@ -43,7 +43,7 @@ module.exports = {
         publicPath: ASSET_PATH,
         filename: '[name].js',
         chunkFilename: '[name].js?v=[contenthash]',
-        library: 'HtmModule',
+        library: 'DocModule',
         libraryTarget: 'umd'
     },
     plugins: [

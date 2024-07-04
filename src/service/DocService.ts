@@ -1,6 +1,6 @@
 /**
- * Epicurrents HTM document service.
- * @package    epicurrents/htm-module
+ * Epicurrents document service.
+ * @package    epicurrents/doc-module
  * @copyright  2024 Sampsa Lohi
  * @license    Apache-2.0
  */
@@ -8,18 +8,18 @@
 import { GenericService } from '@epicurrents/core'
 import { type StudyContext, type WorkerResponse } from '@epicurrents/core/dist/types'
 import { type SetupWorkerResponse } from '@epicurrents/core/dist/types/service'
-import { type HtmDataService } from '#types'
+import { type DocDataService } from '#types'
 
-//const SCOPE = "HtmService"
+//const SCOPE = "DocService"
 
-export default class HtmService extends GenericService implements HtmDataService {
+export default class DocService extends GenericService implements DocDataService {
 
     get worker () {
         return this._worker
     }
 
     constructor (worker: Worker) {
-        super (HtmService.SCOPES.DOCUMENT, worker)
+        super (DocService.SCOPES.DOCUMENT, worker)
         this._worker?.addEventListener('message', this.handleMessage.bind(this))
     }
 

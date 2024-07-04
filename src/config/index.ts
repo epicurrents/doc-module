@@ -1,12 +1,12 @@
 /**
- * Epicurrents HTM settings.
- * @package    epicurrents/htm-module
+ * Epicurrents document settings.
+ * @package    epicurrents/doc-module
  * @copyright  2024 Sampsa Lohi
  * @license    Apache-2.0
  */
 
-import { type HtmModuleSettings } from '../types'
+import { type DocModuleSettings } from '#types'
 
-const htmSettings: HtmModuleSettings = {
+const docSettings: DocModuleSettings = {
 }
-export default htmSettings
+export default docSettings
