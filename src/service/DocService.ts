@@ -9,8 +9,9 @@ import { GenericService } from '@epicurrents/core'
 import { type StudyContext, type WorkerResponse } from '@epicurrents/core/dist/types'
 import { type SetupWorkerResponse } from '@epicurrents/core/dist/types/service'
 import { type DocDataService } from '#types'
+import { Log } from 'scoped-ts-log'
 
-//const SCOPE = "DocService"
+const SCOPE = "DocService"
 
 export default class DocService extends GenericService implements DocDataService {
 
@@ -23,10 +24,34 @@ export default class DocService extends GenericService implements DocDataService
         this._worker?.addEventListener('message', this.handleMessage.bind(this))
     }
 
+    async getContent (pageNum?: number) {
+        const commission = this._commissionWorker(
+            'get-page-content',
+            new Map([
+                ['page-num', pageNum]
+            ])
+        )
+        return commission.promise as Promise<string>
+    }
+
     async handleMessage (message: WorkerResponse) {
         const data = message.data
         if (!data) {
             return false
+        }
+        // Responses must have a matching commission.
+        const commission = this._getCommissionForMessage(message)
+        if (!commission) {
+            return false
+        }
+        if (data.action === 'get-page-content') {
+            if (data.success) {
+                commission.resolve(data.content)
+            } else {
+                Log.error(`Loading page content failed.`, SCOPE)
+                commission.resolve('')
+            }
+            return true
         }
         return false
     }
@@ -41,10 +66,9 @@ export default class DocService extends GenericService implements DocDataService
             }
         })
         const commission = this._commissionWorker(
-            'setup-study',
-            new Map<string, unknown>([
-                ['format', study.format],
-                ['items', items],
+            'set-sources',
+            new Map([
+                ['sources', items],
             ])
         )
         return commission.promise as Promise<SetupWorkerResponse>
