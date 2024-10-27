@@ -25,7 +25,7 @@ export default class DocLoader extends GenericStudyLoader {
     }
 
     get resourceScope () {
-        return HtmDocument.SCOPES.DOCUMENT
+        return HtmDocument.CONTEXTS.DOCUMENT
     }
 
     async getResource (idx: number | string = -1): Promise<DocResource | null> {

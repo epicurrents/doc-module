@@ -20,7 +20,7 @@ export default class DocService extends GenericService implements DocDataService
     }
 
     constructor (worker: Worker) {
-        super (DocService.SCOPES.DOCUMENT, worker)
+        super (DocService.CONTEXTS.DOCUMENT, worker)
         this._worker?.addEventListener('message', this.handleMessage.bind(this))
     }
 
