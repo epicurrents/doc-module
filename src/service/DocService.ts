@@ -9,7 +9,7 @@ import { GenericService } from '@epicurrents/core'
 import { type StudyContext, type WorkerResponse } from '@epicurrents/core/dist/types'
 import { type SetupWorkerResponse } from '@epicurrents/core/dist/types/service'
 import { type DocDataService } from '#types'
-import { Log } from 'scoped-ts-log'
+import { Log } from 'scoped-event-log'
 
 const SCOPE = "DocService"
 

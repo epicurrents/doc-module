@@ -14,7 +14,7 @@ import {
 } from '@epicurrents/core/dist/types'
 import { HtmDocument } from '..'
 import { type DocumentFormat, type DocResource } from '#types'
-import Log from 'scoped-ts-log'
+import Log from 'scoped-event-log'
 
 const SCOPE = 'DocLoader'
 

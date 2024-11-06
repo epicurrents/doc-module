@@ -9,7 +9,7 @@ import { GenericDocumentResource } from '@epicurrents/core'
 import { StudyContext } from '@epicurrents/core/dist/types'
 import DocService from '#service/DocService'
 import { type DocumentFormat, type DocResource } from '#types'
-//import Log from 'scoped-ts-log'
+//import Log from 'scoped-event-log'
 
 //const SCOPE = "HtmDocument"
 export default class HtmDocument extends GenericDocumentResource implements DocResource {
