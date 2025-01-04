@@ -6,21 +6,20 @@
  */
 
 import { GenericService } from '@epicurrents/core'
-import { type StudyContext, type WorkerResponse } from '@epicurrents/core/dist/types'
-import { type SetupWorkerResponse } from '@epicurrents/core/dist/types/service'
-import { type DocDataService } from '#types'
+import type { SetupWorkerResponse, StudyContext, WorkerResponse } from '@epicurrents/core/dist/types'
+import type { DocumentDataService } from '#types'
 import { Log } from 'scoped-event-log'
 
-const SCOPE = "DocService"
+const SCOPE = "DocumentService"
 
-export default class DocService extends GenericService implements DocDataService {
+export default class DocumentService extends GenericService implements DocumentDataService {
 
     get worker () {
         return this._worker
     }
 
     constructor (worker: Worker) {
-        super (DocService.CONTEXTS.DOCUMENT, worker)
+        super (DocumentService.CONTEXTS.DOCUMENT, worker)
         this._worker?.addEventListener('message', this.handleMessage.bind(this))
     }
 
@@ -34,6 +33,21 @@ export default class DocService extends GenericService implements DocDataService
         return commission.promise as Promise<string>
     }
 
+    async getDocument () {
+        const commission = this._commissionWorker('get-document')
+        return commission.promise as Promise<unknown>
+    }
+
+    async getPage (pageNum: number) {
+        const commission = this._commissionWorker(
+            'get-page',
+            new Map([
+                ['page-num', pageNum]
+            ])
+        )
+        return commission.promise as Promise<unknown>
+    }
+
     async handleMessage (message: WorkerResponse) {
         const data = message.data
         if (!data) {
@@ -44,7 +58,23 @@ export default class DocService extends GenericService implements DocDataService
         if (!commission) {
             return false
         }
-        if (data.action === 'get-page-content') {
+        if (data.action === 'get-document') {
+            if (data.success) {
+                commission.resolve(data.document)
+            } else {
+                Log.error(`Loading document failed.`, SCOPE)
+                commission.resolve('')
+            }
+            return true
+        } else if (data.action === 'get-page') {
+            if (data.success) {
+                commission.resolve(data.page)
+            } else {
+                Log.error(`Loading page failed.`, SCOPE)
+                commission.resolve('')
+            }
+            return true
+        } else if (data.action === 'get-page-content') {
             if (data.success) {
                 commission.resolve(data.content)
             } else {

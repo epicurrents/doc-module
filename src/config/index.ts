@@ -5,7 +5,7 @@
  * @license    Apache-2.0
  */
 
-import { type DocModuleSettings } from '#types'
+import type { DocModuleSettings } from '#types'
 
 const docSettings: DocModuleSettings = {
 }

@@ -6,32 +6,33 @@
  */
 
 import { GenericStudyLoader } from '@epicurrents/core'
-import {
-    type ConfigStudyLoader,
-    type FileFormatReader,
-    type FileSystemItem,
-    type StudyContext,
+import type {
+    ConfigStudyLoader,
+    FileFormatReader,
+    FileSystemItem,
+    StudyContext,
 } from '@epicurrents/core/dist/types'
-import { HtmDocument } from '..'
-import { type DocumentFormat, type DocResource } from '#types'
+import { PaginatedDocument } from '..'
+import type { DocumentFormat, PaginatedDocumentResource } from '#types'
 import Log from 'scoped-event-log'
 
 const SCOPE = 'DocLoader'
 
 export default class DocLoader extends GenericStudyLoader {
-
-    constructor (name: string, contexts: string[], types: string[], reader: FileFormatReader) {
-        super(name, contexts, types, reader)
+    protected _docType: string
+    constructor (name: string, type: string, reader: FileFormatReader) {
+        super(name, [PaginatedDocument.CONTEXTS.DOCUMENT], [type], reader)
+        this._docType = type
     }
 
     get resourceScope () {
-        return HtmDocument.CONTEXTS.DOCUMENT
+        return this._docType
     }
 
-    async getResource (idx: number | string = -1): Promise<DocResource | null> {
+    async getResource (idx: number | string = -1): Promise<PaginatedDocumentResource | null> {
         const loaded = await super.getResource(idx)
         if (loaded) {
-            return loaded as DocResource
+            return loaded as PaginatedDocumentResource
         } else if (!this._study) {
             return null
         }
@@ -51,8 +52,9 @@ export default class DocLoader extends GenericStudyLoader {
             Log.error(`Study loader doesn't have a file type loader.`, SCOPE)
             return null
         }
-        const doc = new HtmDocument(
+        const doc = new PaginatedDocument(
             this._study.name,
+            this._docType,
             this._study.format as DocumentFormat,
             this._study,
             worker,
@@ -70,7 +72,7 @@ export default class DocLoader extends GenericStudyLoader {
         if (!context) {
             return null
         }
-        context.type = 'doc'
+        context.type = PaginatedDocument.CONTEXTS.DOCUMENT
         return context
     }
 
@@ -83,7 +85,7 @@ export default class DocLoader extends GenericStudyLoader {
         if (!context) {
             return null
         }
-        context.type = 'doc'
+        context.type = PaginatedDocument.CONTEXTS.DOCUMENT
         return context
     }
 }

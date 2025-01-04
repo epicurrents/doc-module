@@ -6,13 +6,13 @@
  */
 
 import { logInvalidMutation } from '@epicurrents/core/dist/runtime'
-import {
-    type DataResource,
-    type RuntimeResourceModule,
-    type SafeObject,
-    type StateManager,
+import type {
+    DataResource,
+    RuntimeResourceModule,
+    SafeObject,
+    StateManager,
 } from '@epicurrents/core/dist/types'
-import { DocResource } from '#types'
+import type { PaginatedDocumentResource } from '#types'
 
 const SCOPE = 'doc-runtime-module'
 
@@ -26,9 +26,9 @@ const DOC: SafeObject & RuntimeResourceModule = {
     setPropertyValue (property: string, value: unknown, resource?: DataResource, state?: StateManager) {
         // Document specific property mutations.
         const activeRes = resource
-                          ? resource as DocResource
+                          ? resource as PaginatedDocumentResource
                           : state
-                            ? state.APP.activeDataset?.activeResources[0] as DocResource
+                            ? state.APP.activeDataset?.activeResources[0] as PaginatedDocumentResource
                             : null
         if (!activeRes) {
             return
