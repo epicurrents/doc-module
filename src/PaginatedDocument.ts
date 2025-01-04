@@ -82,7 +82,7 @@ export default class PaginatedDocument extends GenericDocumentResource implement
         return this._service.getPage(pageNum)
     }
 
-    getPageText (pageNum: number): Promise<string> {
+    getPageText (pageNum = this._currentPage): Promise<string> {
         return this._service.getContent(pageNum)
     }
 

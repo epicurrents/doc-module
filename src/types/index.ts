@@ -9,7 +9,7 @@ export interface DocumentDataService {
  */
 export type DocumentFormat = "html" | "markdown" | "pdf"
 
-export type DocModuleSettings = {
+export type DocumentModuleSettings = {
 
 }
 
@@ -33,10 +33,10 @@ export interface PaginatedDocumentResource extends DocumentResource {
     getPage(pageNum?: number): Promise<unknown>
     /**
      * Get the text content of the page for the given page number.
-     * @param pageNum - Page number (1-based).
+     * @param pageNum - Page number (1-based, default current page).
      * @returns Text content of the page.
      */
-    getPageText(pageNum: number): Promise<string>
+    getPageText(pageNum?: number): Promise<string>
     /** Increase page number by one, if there is a following page. */
     nextPage (): void
     /** Reduce page number by one, if there is a preceding page. */
