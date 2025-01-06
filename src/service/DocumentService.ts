@@ -6,8 +6,8 @@
  */
 
 import { GenericService } from '@epicurrents/core'
-import type { SetupWorkerResponse, StudyContext, WorkerResponse } from '@epicurrents/core/dist/types'
-import type { DocumentDataService } from '#types'
+import type { StudyContext, WorkerResponse } from '@epicurrents/core/dist/types'
+import type { DocumentDataService, SetupDocumentWorkerResponse } from '#types'
 import { Log } from 'scoped-event-log'
 
 const SCOPE = "DocumentService"
@@ -27,7 +27,7 @@ export default class DocumentService extends GenericService implements DocumentD
         const commission = this._commissionWorker(
             'get-page-content',
             new Map([
-                ['page-num', pageNum]
+                ['pageNum', pageNum]
             ])
         )
         return commission.promise as Promise<string>
@@ -42,7 +42,7 @@ export default class DocumentService extends GenericService implements DocumentD
         const commission = this._commissionWorker(
             'get-page',
             new Map([
-                ['page-num', pageNum]
+                ['pageNum', pageNum]
             ])
         )
         return commission.promise as Promise<unknown>
@@ -63,7 +63,7 @@ export default class DocumentService extends GenericService implements DocumentD
                 commission.resolve(data.document)
             } else {
                 Log.error(`Loading document failed.`, SCOPE)
-                commission.resolve('')
+                commission.resolve(null)
             }
             return true
         } else if (data.action === 'get-page') {
@@ -71,7 +71,7 @@ export default class DocumentService extends GenericService implements DocumentD
                 commission.resolve(data.page)
             } else {
                 Log.error(`Loading page failed.`, SCOPE)
-                commission.resolve('')
+                commission.resolve(null)
             }
             return true
         } else if (data.action === 'get-page-content') {
@@ -82,6 +82,15 @@ export default class DocumentService extends GenericService implements DocumentD
                 commission.resolve('')
             }
             return true
+        } else if (data.action === 'set-sources') {
+            if (data.success) {
+                commission.resolve({ numPages: data.numPages })
+            } else {
+                Log.error(`Setting sources failed.`, SCOPE)
+                commission.resolve({ numPages: 0 })
+            }
+            return true
+
         }
         return false
     }
@@ -101,6 +110,6 @@ export default class DocumentService extends GenericService implements DocumentD
                 ['sources', items],
             ])
         )
-        return commission.promise as Promise<SetupWorkerResponse>
+        return commission.promise as Promise<SetupDocumentWorkerResponse>
     }
 }

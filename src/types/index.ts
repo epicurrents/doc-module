@@ -42,3 +42,8 @@ export interface PaginatedDocumentResource extends DocumentResource {
     /** Reduce page number by one, if there is a preceding page. */
     prevPage (): void
 }
+
+export type SetupDocumentWorkerResponse = { 
+    /** Total number of pages in the document; document has only single page if undefined. */
+    numPages?: number
+}

@@ -37,7 +37,16 @@ export default class PaginatedDocument extends GenericDocumentResource implement
     constructor (name: string, type: string, format: DocumentFormat, source: StudyContext, worker: Worker) {
         super(name, type, format, source)
         this._service = new DocumentService(worker)
-        this._service.prepareWorker(source)
+        this._state = 'loading'
+        this._service.prepareWorker(source).then((response) => {
+            if (response.numPages) {
+                this._numPages = response.numPages
+                this._state = 'ready'
+            } else {
+                this._errorReason = 'Document has no pages'
+                this._state = 'error'
+            }
+        })
     }
 
     get content (): Promise<string> {
@@ -64,13 +73,16 @@ export default class PaginatedDocument extends GenericDocumentResource implement
 
     getMainProperties () {
         const props = super.getMainProperties()
-        if (this.numPages < 2) {
+        if (!this.numPages) {
+            props.set('Not loaded yet', null)
+        } else if (this.numPages < 2) {
             props.set('Single page', null)
         } else {
             props.set(
                 this.numPages.toString(),
                 {
-                    title: '{n} pages',
+                    text: '{n} pages',
+                    title: 'Document has a total of {n} pages',
                     n: this.numPages
                 }
             )
