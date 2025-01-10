@@ -17,8 +17,8 @@ import type { DocumentFormat, PaginatedDocumentResource } from '#types'
  * returned by these methods may vary depending on the document type.
  */
 export default class PaginatedDocument extends GenericDocumentResource implements PaginatedDocumentResource {
-    /** List of supported document types. */
-    static TYPES = {
+    /** List of supported document modalities (types). */
+    static MODALITIES = {
         HTM: 'htm',
         PDF: 'pdf',
     }

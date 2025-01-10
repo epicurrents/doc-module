@@ -21,11 +21,11 @@ const SCOPE = 'DocLoader'
 export default class DocLoader extends GenericStudyLoader {
     protected _docType: string
     constructor (name: string, type: string, reader: FileFormatReader) {
-        super(name, [PaginatedDocument.CONTEXTS.DOCUMENT], [type], reader)
+        super(name, [type], reader)
         this._docType = type
     }
 
-    get resourceScope () {
+    get resourceModality () {
         return this._docType
     }
 
@@ -72,7 +72,7 @@ export default class DocLoader extends GenericStudyLoader {
         if (!context) {
             return null
         }
-        context.type = PaginatedDocument.CONTEXTS.DOCUMENT
+        context.modality = 'document'
         return context
     }
 
@@ -85,7 +85,7 @@ export default class DocLoader extends GenericStudyLoader {
         if (!context) {
             return null
         }
-        context.type = PaginatedDocument.CONTEXTS.DOCUMENT
+        context.modality = 'document'
         return context
     }
 }

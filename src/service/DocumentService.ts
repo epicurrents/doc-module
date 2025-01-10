@@ -19,7 +19,7 @@ export default class DocumentService extends GenericService implements DocumentD
     }
 
     constructor (worker: Worker) {
-        super (DocumentService.CONTEXTS.DOCUMENT, worker)
+        super ('document', worker)
         this._worker?.addEventListener('message', this.handleMessage.bind(this))
     }
 
