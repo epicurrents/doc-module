@@ -1,13 +1,16 @@
-import DocService from '#service/DocService'
-import DocLoader from '#loader/DocLoader'
-import HtmDocument from './HtmDocument'
+import DocumentLoader from '#loader/DocumentLoader'
+import DocumentService from '#service/DocumentService'
+import PaginatedDocument from './PaginatedDocument'
 import runtime from './runtime'
 import settings from './config'
 
+const modality = 'document'
+
 export {
-    DocService,
-    DocLoader,
-    HtmDocument,
+    DocumentLoader,
+    DocumentService,
+    PaginatedDocument,
+    modality,
     runtime,
     settings,
 }

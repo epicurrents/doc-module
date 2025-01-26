@@ -5,8 +5,8 @@
  * @license    Apache-2.0
  */
 
-import { type DocModuleSettings } from '#types'
+import type { DocumentModuleSettings } from '#types'
 
-const docSettings: DocModuleSettings = {
+const docSettings: DocumentModuleSettings = {
 }
 export default docSettings
