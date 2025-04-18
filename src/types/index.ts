@@ -1,4 +1,4 @@
-import type { DocumentResource } from "@epicurrents/core/dist/types"
+import type { BaseModuleSettings, DocumentResource } from "@epicurrents/core/dist/types"
 
 export interface DocumentDataService {
 
@@ -9,9 +9,7 @@ export interface DocumentDataService {
  */
 export type DocumentFormat = "html" | "markdown" | "pdf"
 
-export type DocumentModuleSettings = {
-
-}
+export type DocumentModuleSettings = BaseModuleSettings
 
 export interface PaginatedDocumentResource extends DocumentResource {
     /** Promise that resolves with the content of the current page. */
@@ -43,7 +41,7 @@ export interface PaginatedDocumentResource extends DocumentResource {
     prevPage (): void
 }
 
-export type SetupDocumentWorkerResponse = { 
+export type SetupDocumentWorkerResponse = {
     /** Total number of pages in the document; document has only single page if undefined. */
     numPages?: number
 }

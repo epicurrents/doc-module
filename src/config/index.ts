@@ -8,5 +8,6 @@
 import type { DocumentModuleSettings } from '#types'
 
 const docSettings: DocumentModuleSettings = {
+    useMemoryManager: false,
 }
 export default docSettings
