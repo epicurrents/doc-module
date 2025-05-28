@@ -23,6 +23,9 @@ const DOC: SafeObject & RuntimeResourceModule = {
         full: 'Document',
         short: 'Doc',
     },
+    async applyConfiguration (_config) {
+
+    },
     setPropertyValue (property: string, value: unknown, resource?: DataResource, state?: StateManager) {
         // Document specific property mutations.
         const activeRes = resource
