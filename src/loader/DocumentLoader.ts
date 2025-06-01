@@ -9,6 +9,7 @@ import { GenericStudyLoader } from '@epicurrents/core'
 import type {
     ConfigStudyLoader,
     FileFormatReader,
+    FileFormatWriter,
     FileSystemItem,
     StudyContext,
 } from '@epicurrents/core/dist/types'
@@ -20,8 +21,8 @@ const SCOPE = 'DocLoader'
 
 export default class DocLoader extends GenericStudyLoader {
     protected _docType: string
-    constructor (name: string, type: string, reader: FileFormatReader) {
-        super(name, [type], reader)
+    constructor (name: string, type: string, reader: FileFormatReader, writer?: FileFormatWriter) {
+        super(name, [type], reader, writer)
         this._docType = type
     }
 
