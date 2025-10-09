@@ -8,8 +8,8 @@
 import { GenericStudyLoader } from '@epicurrents/core'
 import type {
     ConfigStudyLoader,
-    FileFormatReader,
-    FileFormatWriter,
+    FileFormatExporter,
+    FileFormatImporter,
     FileSystemItem,
     StudyContext,
 } from '@epicurrents/core/dist/types'
@@ -21,8 +21,8 @@ const SCOPE = 'DocLoader'
 
 export default class DocLoader extends GenericStudyLoader {
     protected _docType: string
-    constructor (name: string, type: string, reader: FileFormatReader, writer?: FileFormatWriter) {
-        super(name, [type], reader, writer)
+    constructor (name: string, type: string, importer: FileFormatImporter, exporter?: FileFormatExporter) {
+        super(name, [type], importer, exporter)
         this._docType = type
     }
 
@@ -44,7 +44,7 @@ export default class DocLoader extends GenericStudyLoader {
             SCOPE)
             return null
         }
-        const worker = this._fileReader?.getFileTypeWorker()
+        const worker = this._studyImporter?.getFileTypeWorker()
         if (!worker) {
             Log.error(`Study loader does not have a file worker.`, SCOPE)
             return null
