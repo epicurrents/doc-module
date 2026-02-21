@@ -13,17 +13,17 @@ import type {
     StateManager,
 } from '@epicurrents/core/dist/types'
 import type { PaginatedDocumentResource } from '#types'
+import { safeObjectFrom } from '@epicurrents/core/dist/util'
 
 const SCOPE = 'doc-runtime-module'
 
-const DOC: SafeObject & RuntimeResourceModule = {
-    __proto__: null,
+const DOC: SafeObject & RuntimeResourceModule = safeObjectFrom({
     moduleName: {
         code: 'doc',
         full: 'Document',
         short: 'Doc',
     },
-    async applyConfiguration (_config) {
+    async applyConfiguration (_config: unknown) {
 
     },
     setPropertyValue (property: string, value: unknown, resource?: DataResource, state?: StateManager) {
@@ -46,5 +46,5 @@ const DOC: SafeObject & RuntimeResourceModule = {
             }
         }
     },
-}
+})
 export default DOC
