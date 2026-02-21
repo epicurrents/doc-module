@@ -17,13 +17,13 @@ import { safeObjectFrom } from '@epicurrents/core/dist/util'
 
 const SCOPE = 'doc-runtime-module'
 
-const DOC: SafeObject & RuntimeResourceModule = safeObjectFrom({
+const DOC = safeObjectFrom({
     moduleName: {
         code: 'doc',
         full: 'Document',
         short: 'Doc',
     },
-    async applyConfiguration (_config: unknown) {
+    async applyConfiguration (_config) {
 
     },
     setPropertyValue (property: string, value: unknown, resource?: DataResource, state?: StateManager) {
@@ -46,5 +46,5 @@ const DOC: SafeObject & RuntimeResourceModule = safeObjectFrom({
             }
         }
     },
-})
+} as SafeObject & RuntimeResourceModule)
 export default DOC
