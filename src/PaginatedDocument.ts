@@ -76,7 +76,7 @@ export default class PaginatedDocument extends GenericDocumentResource implement
         if (!this.numPages) {
             props.set('pages', null)
         } else {
-            props.set('pages', this.numPages.toString())
+            props.set('pages', this.numPages)
         }
         return props
     }
