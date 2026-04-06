@@ -74,18 +74,9 @@ export default class PaginatedDocument extends GenericDocumentResource implement
     getMainProperties () {
         const props = super.getMainProperties()
         if (!this.numPages) {
-            props.set('Not loaded yet', null)
-        } else if (this.numPages < 2) {
-            props.set('Single page', null)
+            props.set('pages', null)
         } else {
-            props.set(
-                this.numPages.toString(),
-                {
-                    text: '{n} pages',
-                    title: 'Document has a total of {n} pages',
-                    n: this.numPages
-                }
-            )
+            props.set('pages', this.numPages.toString())
         }
         return props
     }
