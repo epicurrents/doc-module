@@ -25,6 +25,12 @@ export default class PaginatedDocument extends GenericDocumentResource implement
     protected _currentPage = 1
     protected _numPages = 0
     protected _service: DocumentService
+    /**
+     * Resolves once the worker has loaded the document sources. All page and content accessors await it before
+     * commissioning the worker, so a consumer that requests a page before setup has finished (e.g. the viewer
+     * mounting on the first auto-opened resource) waits rather than hitting the worker's not-ready guard.
+     */
+    protected _setup: Promise<void>
     protected _worker?: Worker
     /**
      * Create a new MultiDocument.
@@ -38,7 +44,7 @@ export default class PaginatedDocument extends GenericDocumentResource implement
         super(name, type, format, source)
         this._service = new DocumentService(worker)
         this._state = 'loading'
-        this._service.prepareWorker(source).then((response) => {
+        this._setup = this._service.prepareWorker(source).then((response) => {
             if (response.numPages) {
                 this._numPages = response.numPages
                 this._state = 'ready'
@@ -50,7 +56,7 @@ export default class PaginatedDocument extends GenericDocumentResource implement
     }
 
     get content (): Promise<string> {
-        return this._service.getContent(this._numPages > 1 ? this._currentPage : undefined)
+        return this._setup.then(() => this._service.getContent(this._numPages > 1 ? this._currentPage : undefined))
     }
 
     get currentPage () {
@@ -68,7 +74,7 @@ export default class PaginatedDocument extends GenericDocumentResource implement
     }
 
     getDocument (): Promise<unknown> {
-        return this._service.getDocument()
+        return this._setup.then(() => this._service.getDocument())
     }
 
     getMainProperties () {
@@ -82,11 +88,11 @@ export default class PaginatedDocument extends GenericDocumentResource implement
     }
 
     getPage (pageNum = this._currentPage): Promise<unknown> {
-        return this._service.getPage(pageNum)
+        return this._setup.then(() => this._service.getPage(pageNum))
     }
 
     getPageText (pageNum = this._currentPage): Promise<string> {
-        return this._service.getContent(pageNum)
+        return this._setup.then(() => this._service.getContent(pageNum))
     }
 
     nextPage () {
