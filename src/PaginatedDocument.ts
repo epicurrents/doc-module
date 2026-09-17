@@ -6,7 +6,7 @@
  */
 
 import { GenericDocumentResource } from '@epicurrents/core'
-import type { StudyContext } from '@epicurrents/core/dist/types'
+import type { StudyContext } from '@epicurrents/core/types'
 import DocumentService from '#service/DocumentService'
 import type { DocumentFormat, PaginatedDocumentResource } from '#types'
 //import Log from 'scoped-event-log'

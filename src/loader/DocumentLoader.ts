@@ -12,7 +12,7 @@ import type {
     FileFormatImporter,
     FileSystemItem,
     StudyContext,
-} from '@epicurrents/core/dist/types'
+} from '@epicurrents/core/types'
 import { PaginatedDocument } from '..'
 import type { DocumentFormat, PaginatedDocumentResource } from '#types'
 import Log from 'scoped-event-log'

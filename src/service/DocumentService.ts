@@ -6,7 +6,7 @@
  */
 
 import { GenericService } from '@epicurrents/core'
-import type { StudyContext, WorkerResponse } from '@epicurrents/core/dist/types'
+import type { StudyContext, WorkerResponse } from '@epicurrents/core/types'
 import type { DocumentDataService, SetupDocumentWorkerResponse } from '#types'
 import { Log } from 'scoped-event-log'
 

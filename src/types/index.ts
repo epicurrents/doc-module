@@ -1,4 +1,4 @@
-import type { BaseModuleSettings, DocumentResource } from "@epicurrents/core/dist/types"
+import type { BaseModuleSettings, DocumentResource } from "@epicurrents/core/types"
 
 export interface DocumentDataService {
 

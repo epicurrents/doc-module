@@ -5,15 +5,15 @@
  * @license    Apache-2.0
  */
 
-import { logInvalidMutation } from '@epicurrents/core/dist/runtime'
+import { logInvalidMutation } from '@epicurrents/core/runtime'
 import type {
     DataResource,
     RuntimeResourceModule,
     SafeObject,
     StateManager,
-} from '@epicurrents/core/dist/types'
+} from '@epicurrents/core/types'
 import type { PaginatedDocumentResource } from '#types'
-import { safeObjectFrom } from '@epicurrents/core/dist/util'
+import { safeObjectFrom } from '@epicurrents/core/util'
 
 const SCOPE = 'doc-runtime-module'
 
